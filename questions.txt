@@ -1,0 +1,5 @@
+(1) Both filters count pixels where red is greater than green and blue. They use the same test, but the loops are in a different order. filter1 visits columns first, while filter2 visits rows first. Because the pixels are stored row by row, filter2 reads the pixels in a more natural order, takes advantage of spactial locality.
+
+(2) Larger images take longer because the filters must check more pixels. The graph shows that the time increases as the image size increases, and filter2 is usually faster than filter1. The times are slightly different on each run because the computer is also running other processes. For the 2048x2048 image, filter1 took about 0.028554 to 0.042673 seconds, while filter2 took about 0.015210 to 0.025968 seconds.
+
+(3) filter2 is usually faster because it reads nearby pixels next to each other. This gives the CPU fewer cache misses. filter1 jumps between rows, so it has to load data from memory more often. For the 1024x1024 image, Cachegrind reported about 1,346,268 cache misses for filter1 and about 394,715 for filter2. Fewer cache misses usually means better performance.
